@@ -1,16 +1,15 @@
 import express from "express";
+import userRouter from "./UserRoutes.js";
 
-import produtoRouter from './produtoRouter.js'
+const router = express.Router();
 
-const routes = (app) => {
-    app.route('/').get((req, res) => {
-        res.status(200).send({Titulo: "N2-B1 Programação Mobile"})
-    })
+router.get("/", (req, res) => {
+  res.status(200).send({ Titulo: "N2-B1 Programação Mobile" });
+});
 
-    app.use(
-        express.json(),
-        produtoRouter,
-    )
-}
+router.use(
+  express.json(),
+  userRouter,
+);
 
-export default routes;
+export default router;

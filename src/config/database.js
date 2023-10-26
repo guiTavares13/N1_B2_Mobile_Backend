@@ -1,8 +1,9 @@
+import { Sequelize } from "sequelize";
 
-import mongoose from "mongoose";
+const sequelize = new Sequelize('n1_b2_mobile','root','123456',  {
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql'
+});
 
-const url = 'mongodb+srv://node-server:<1Camisa*>@node-express.tkjdpq5.mongodb.net/?retryWrites=true&w=majority/n1_b2_mobile';
-
-mongoose.connect(url);
-
-module.exports = mongoose;
+export default sequelize;

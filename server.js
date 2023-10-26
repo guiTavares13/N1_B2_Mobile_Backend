@@ -1,7 +1,16 @@
-import app from './src/app.js'
+import express from "express";
+import routes from "./src/routes/index.js";
+import sequelize from "./src/config/database.js";
 
-const port = 3000;
+const app = express();
+const PORT = 3000;
 
-app.listen(port, ()=> {
-    console.log(`Ouvindo na porta ${port}`)
-})
+sequelize.sync().then(() => {
+  console.log("Tabelas sincronizadas!");
+});
+
+app.use(routes);
+
+app.listen(PORT, () => {
+  console.log(`Ouvindo na porta ${PORT}`);
+});
