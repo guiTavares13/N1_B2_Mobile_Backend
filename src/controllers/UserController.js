@@ -6,6 +6,7 @@ const UserController = {
 
         try {
             const user = await User.create(req.body);
+            console.log(req.body)
             return res.status(201).json(user);
         } catch (err) {
             return res.status(400).json({ error: err.message });
