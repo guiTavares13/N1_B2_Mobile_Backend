@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const User = sequelize.define('User', {
     id: {
@@ -26,5 +28,23 @@ const User = sequelize.define('User', {
         allowNull: false,
     }
 });
+
+User.prototype.hashPassword = async function() {
+    this.password = await bcrypt.hash(this.password, 10);
+}
+
+User.prototype.checkPassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
+}
+
+User.beforeCreate(async (user) => {
+    await user.hashPassword();
+})
+
+User.prototype.generateToken = function() {
+    return jwt.sign({id: this.id, role: this.role}, process.env.JWT_SECRET, {
+        expiresIn: "1d",
+    });
+};
 
 export default User;
