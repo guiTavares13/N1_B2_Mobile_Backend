@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 import Companies from './Companies.js';
+import ProductTypes from './ProductTypes.js';
 
 const Product = sequelize.define('Product', {
     id: {
@@ -35,6 +36,19 @@ const Product = sequelize.define('Product', {
             key: 'id',
         },
     },
+    type_id: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: ProductTypes,
+            key: 'id',
+        }
+    },
+    createdAt: {
+        type: DataTypes.DATE
+    },
+    updatedAt: {
+        type: DataTypes.DATE
+    }
 });
 
 export default Product;

@@ -1,4 +1,4 @@
-import Companies from "../models/Companies";
+import Companies from "../models/Companies.js";
 import errorHandler from "../middlewares/errorHandler.js";
 
 const CompaniesController = {

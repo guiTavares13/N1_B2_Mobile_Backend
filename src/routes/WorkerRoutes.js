@@ -1,5 +1,5 @@
 import express from 'express';
-import WorkerController from '../controllers/WorkerController';
+import WorkerController from '../controllers/WorkerController.js';
 
 const workerRouter = express.Router();
 

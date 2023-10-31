@@ -1,5 +1,5 @@
 import Appointment from "../models/Appointment";
-import errorHandler from "../middlewares/errorHandler";
+import errorHandler from "../middlewares/errorHandler.js";
 
 const findAppointment = async (id) => {
     const appointment = await Appointment.findByPk(id);
