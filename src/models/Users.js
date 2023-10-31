@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 import bcrypt from 'bcrypt';
+import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 
 const User = sequelize.define('User', {
@@ -26,7 +27,14 @@ const User = sequelize.define('User', {
         type: DataTypes.ENUM('client', 'admin'),
         defaultValue: 'client',
         allowNull: false,
+    }, 
+    createdAt: {
+        type: DataTypes.DATE
+    },
+    updatedAt: {
+        type: DataTypes.DATE
     }
+
 });
 
 User.prototype.hashPassword = async function() {

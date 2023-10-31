@@ -1,5 +1,8 @@
 import User from "../models/Users.js";
 import errorHandler from "../middlewares/errorHandler.js";
+import { ValidationError } from 'sequelize';
+
+
 
 const findUser = async (id) => {
     const user = await User.findByPk(id);
@@ -18,14 +21,23 @@ const UserController = {
         if (!user || !(await user.checkPassword(password))) {
             return res.status(401).json({ error: "Email ou senha incorretos." });
         }
-
+        console.log(user);
         const token = user.generateToken();
-        return res.status(200).json({ token, user });
+        return res.status(200).json({ token, data: user });
     }),
 
     create: errorHandler(async (req, res) => {
-        const user = await User.create(req.body);
-        return res.status(201).json(user);
+        try {
+            console.log("Corpo da requisição:", req.body);
+            const user = await User.create(req.body);
+            console.log(user);
+            return res.status(201).json(user);
+        } catch (error) {
+            if (error instanceof ValidationError) {
+                return res.status(400).json({ error: error.message });
+            }
+            throw error;
+        }
     }),
 
     list: errorHandler(async (req, res) => {
