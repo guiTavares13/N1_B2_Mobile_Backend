@@ -18,6 +18,12 @@ const Companies = sequelize.define('Companies', {
     description: {
         type: DataTypes.TEXT,
         allowNull: true,
+    },
+    createdAt: {
+        type: DataTypes.DATE
+    },
+    updateAt: {
+        type: DataTypes.DATE
     }
 });
 

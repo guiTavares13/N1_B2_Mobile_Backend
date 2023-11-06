@@ -23,6 +23,12 @@ const Worker = sequelize.define('Worker', {
             key: 'id',
         },
     },
+    createdAt: {
+        type: DataTypes.DATE
+    },
+    updateAt: {
+        type: DataTypes.DATE
+    }
 });
 
 export default Worker;

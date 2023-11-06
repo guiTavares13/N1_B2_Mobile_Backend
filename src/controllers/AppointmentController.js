@@ -21,9 +21,54 @@ const AppointmentController = {
         return res.status(200).json(appointments);
     }),
 
+    findByProduct: errorHandler(async (req, res) => {
+        const { id } = req.params;
+        const appointment = await Appointment.findAll({
+            where: { product_id: id },
+        });
+
+        console.log(`Agendamentos do produto ${id}: `, appointment);
+
+        if(!appointment || appointment.length === 0) {
+            return res.status(404).json({ error: `Nenhum agendamento encontrado associado ao produto ${id}` });
+        }
+
+        return res.status(200).json(appointment);
+    }),
+
+    findByUser: errorHandler(async (req, res) => {
+        const { id } = req.params;
+        const appointment = await Appointment.findAll({
+            where: { user_id: id },
+        });
+
+        console.log(`Agendamentos do usuário ${id}: `, appointment);
+
+        if(!appointment || appointment.length === 0) {
+            return res.status(404).json({ error: `Nenhum agendamento encontrado associado ao usuário ${id}` });
+        }
+
+        return res.status(200).json(appointment);
+    }),
+
     findByPk: errorHandler(async (req, res) => {
         const { id } = req.params;
         const appointment = await findAppointment(id);
+        return res.status(200).json(appointment);
+    }),
+
+    findByWorker: errorHandler(async (req, res) => {
+        const id = req.params;
+        const appointment = await Appointment.findAll({
+            where: { worker_id: id },
+        });
+
+        console.log(`Agendamentos do funcionario ${id}: `, appointment);
+
+        if(!appointment || appointment.length === 0) {
+            return res.status(404).json({ error: `Nenhum agendamento encontrado associado ao trabalhador ${id}` });
+        }
+
         return res.status(200).json(appointment);
     }),
 
@@ -40,6 +85,8 @@ const AppointmentController = {
         await appointment.destroy();
         return res.status(200).json({ message: "Agendamento deletado com sucesso." });
     })
+
+
 
 }
 

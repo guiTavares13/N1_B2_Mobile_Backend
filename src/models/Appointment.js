@@ -36,6 +36,12 @@ const Appointment = sequelize.define('Appointment', {
         type: DataTypes.DATE,
         allowNull: false,
     },
+    createdAt: {
+        type: DataTypes.DATE
+    }, 
+    updateAt: {
+        type: DataTypes.DATE
+    }
 });
 
 export default Appointment;
