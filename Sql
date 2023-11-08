@@ -1,3 +1,4 @@
+
 DROP DATABASE if exists n1_b2_mobile;
 CREATE DATABASE n1_b2_mobile;
 
@@ -19,7 +20,9 @@ CREATE TABLE companies (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     location VARCHAR(255),
-    description TEXT
+    description TEXT,
+	createdAt DATETIME,
+    updatedAt DATETIME
 );
 
 CREATE TABLE workers (
@@ -27,6 +30,8 @@ CREATE TABLE workers (
     name VARCHAR(255) NOT NULL,
     speciality VARCHAR(255),
     company_id INT,
+      createdAt DATETIME,
+    updatedAt DATETIME,
     FOREIGN KEY (company_id) REFERENCES companies(id)
 );
 
@@ -34,7 +39,7 @@ CREATE TABLE product_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
- createdAt DATETIME,
+	createdAt DATETIME,
     updatedAt DATETIME
 );
 
@@ -53,8 +58,6 @@ CREATE TABLE products (
     FOREIGN KEY (type_id) REFERENCES product_types(id)
 );
 
-SELECT * FROM Products AS Product WHERE Product.type_id = '2';
-SELECT id, name, description, price, image_url, duration, company_id, type_id, createdAt,updatedAt FROM Products AS Product WHERE Product.type_id = '2';
 
 CREATE TABLE appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -62,14 +65,12 @@ CREATE TABLE appointments (
     worker_id INT,
     product_id INT,
     date_time DATETIME NOT NULL,
+	createdAt DATETIME,
+    updatedAt DATETIME,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (worker_id) REFERENCES workers(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
-
-select * from companies;
-select * from products;
-select * from product_types;
 
 INSERT INTO product_types (name, description) VALUES
 ('EF', 'Estética facial'),
@@ -77,13 +78,42 @@ INSERT INTO product_types (name, description) VALUES
 ('EC', 'Estética corporal'),
 ('EA', 'Estética avançada');
 
-
-
 INSERT INTO companies (name, location, description) VALUES
-('Teste', 'Teste Local', 'Teste Description'),
-('Teste1', 'Teste Local1', 'Teste Description1');
+('Saude e Bem estar', 'Rua Tereza - SP', 'Clinica especialiazda em limpeza de pele'),
+('Buddha Spa', 'Rua Vergueiro', 'Clinica especializada e bem estar e relaxamento');
 
 -- Inserir registros na tabela products
 INSERT INTO products (name, description, price, image_url, duration, company_id, type_id) VALUES
-('Produto Exemplo', 'Descrição do Produto Exemplo', 99.99, 'http://exemplo.com/imagem1.jpg', 60, 1, 1),
-('Outro Produto', 'Descrição do Outro Produto', 49.99, 'http://exemplo.com/imagem2.jpg', 30, 1, 2);
+('Limpeza de Pele', 'Pureza nos poros e limpeza profunda', 99.99, 'http://exemplo.com/imagem1.jpg', 60, 1, 1),
+('Massagem relaxante', 'Relaxamento muscular', 49.99, 'http://exemplo.com/imagem2.jpg', 30, 2, 2),
+('Massgem desportiva', 'Descrição do Outro Produto', 49.99, 'http://exemplo.com/imagem2.jpg', 30, 1, 2),
+('Aplicação de enzimas', 'Descrição do Outro Produto', 49.99, 'http://exemplo.com/imagem2.jpg', 30, 1, 3),
+('Shiatsu', 'Descrição do Outro Produto', 49.99, 'http://exemplo.com/imagem2.jpg', 30, 1, 4);
+
+-- Inserir registros na tabela workers
+INSERT INTO workers (name, speciality, company_id) VALUES
+('Jose', 'Especialidade A', 1),
+('Maria', 'Especialidade B', 1),
+('Mario', 'Especialidade C', 2),
+('Subtenente Falconi', 'Especialidade D', 2);
+
+INSERT INTO users (name, email, password, role, createdAt, updatedAt) VALUES ('John Doe', 'john.doe@example.com', 'hashed_password', 'client', '2023-11-08 01:45:30', '2023-11-08 01:45:30');
+INSERT INTO users (name, email, password, role, createdAt, updatedAt) VALUES ('Joao', 'teste3@teste.com', SHA2('1234', 256), 'admin', '2023-11-08 01:45:30', '2023-11-08 01:45:30');
+
+
+SELECT id, name, email, password, role, createdAt, updatedAt FROM Users AS User WHERE User.email = 'teste3@teste.com';
+
+Select * from workers;
+select * from users;
+Select * from appointments;
+SELECT id, name, speciality, company_id, createdAt, updatedAt FROM Workers AS Worker;
+SELECT id, name, location, description, createdAt, updatedAt FROM Companies AS Companies WHERE Companies.id = '1';
+SELECT * FROM Products AS Product WHERE Product.type_id = '2';
+SELECT id, name, description, price, image_url, duration, company_id, type_id, createdAt,updatedAt FROM Products AS Product WHERE Product.type_id = '2';
+
+
+SELECT id, user_id, worker_id, product_id, date_time, createdAt, updatedAt FROM Appointments AS Appointment;
+
+INSERT INTO Appointments (id, user_id, worker_id, product_id, date_time, createdAt, updatedAt) VALUES (DEFAULT, 1, 1, 1, '2023-11-08 01:45:30', '2023-11-08 01:45:30', '2023-11-08 01:45:30');
+
+ SELECT id, user_id, worker_id, product_id, date_time, createdAt, updatedAt FROM Appointments AS Appointment WHERE Appointment.user_id = '2';
