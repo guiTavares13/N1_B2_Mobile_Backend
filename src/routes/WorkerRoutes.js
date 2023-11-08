@@ -6,5 +6,6 @@ const workerRouter = express.Router();
 workerRouter
     .post("/worker", WorkerController.create)
     .get("/worker", WorkerController.list)
+    .get("/workerById/:id", WorkerController.findByPk)
 
 export default workerRouter;

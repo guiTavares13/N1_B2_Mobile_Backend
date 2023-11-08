@@ -3,6 +3,8 @@ import userRouter from "./UserRoutes.js";
 import productTypesRouter from "./ProductTypesRoutes.js";
 import productRouter from "./ProductsRoutes.js";
 import companiesRouter from "./CompaniesRoutes.js";
+import workerRouter from "./WorkerRoutes.js";
+import appointmentRouter from "./AppointmentRoutes.js";
 
 const router = express.Router();
 
@@ -15,7 +17,9 @@ router.use(
   userRouter,
   productRouter,
   productTypesRouter,
-  companiesRouter
+  companiesRouter,
+  workerRouter,
+  appointmentRouter
 );
 
 export default router;

@@ -39,7 +39,7 @@ const Appointment = sequelize.define('Appointment', {
     createdAt: {
         type: DataTypes.DATE
     }, 
-    updateAt: {
+    updatedAt: {
         type: DataTypes.DATE
     }
 });

@@ -1,4 +1,4 @@
-import Appointment from "../models/Appointment";
+import Appointment from "../models/Appointment.js";
 import errorHandler from "../middlewares/errorHandler.js";
 
 const findAppointment = async (id) => {
@@ -37,17 +37,19 @@ const AppointmentController = {
     }),
 
     findByUser: errorHandler(async (req, res) => {
-        const { id } = req.params;
+        const { user_id } = req.params;
+        console.log("AQUIIIIIIIIII", user_id);
         const appointment = await Appointment.findAll({
-            where: { user_id: id },
+            where: { user_id: user_id },
         });
 
-        console.log(`Agendamentos do usuário ${id}: `, appointment);
+        console.log(`Agendamentos do usuário ${user_id}: `, appointment);
 
         if(!appointment || appointment.length === 0) {
+            console.log("ruim", appointment);
             return res.status(404).json({ error: `Nenhum agendamento encontrado associado ao usuário ${id}` });
         }
-
+        console.log("BOMMM", appointment);
         return res.status(200).json(appointment);
     }),
 

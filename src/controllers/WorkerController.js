@@ -1,4 +1,4 @@
-import Worker from '../models/Users.js';
+import Worker from '../models/Worker.js';
 import errorHandler from "../middlewares/errorHandler.js";
 
 const WorkerController = {
@@ -10,8 +10,10 @@ const WorkerController = {
 
     list: errorHandler(async (req, res) => {
         const workers = await Worker.findAll();
+        console.log(workers);
         return res.status(200).json(workers);
     }),
+
 
     findByPk: errorHandler(async (req, res) => {
         const worker = await Worker.findByPk(req.params.id);

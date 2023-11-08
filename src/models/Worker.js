@@ -26,7 +26,7 @@ const Worker = sequelize.define('Worker', {
     createdAt: {
         type: DataTypes.DATE
     },
-    updateAt: {
+    updatedAt: {
         type: DataTypes.DATE
     }
 });

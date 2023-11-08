@@ -22,7 +22,7 @@ const Companies = sequelize.define('Companies', {
     createdAt: {
         type: DataTypes.DATE
     },
-    updateAt: {
+    updatedAt: {
         type: DataTypes.DATE
     }
 });

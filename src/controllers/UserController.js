@@ -21,7 +21,9 @@ const UserController = {
         if (!user || !(await user.checkPassword(password))) {
             return res.status(401).json({ error: "Email ou senha incorretos." });
         }
-        console.log(user);
+
+    
+        console.log('logando usuário', user);
         const token = user.generateToken();
         return res.status(200).json({ token, data: user });
     }),
